@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login and Registration Success</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'practice_1/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'practice_1/css/main.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">    
+            <div>
+                <h1>{{ book.title }}</h1>
+                <p>Author: {{ book.author.name }}</p>
+            </div><div>   
+                <form action="/books" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Home" class="btn btn-success">
+                </form>         
+                <form action="/logout" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Logout" class="btn btn-danger">                   
+                </form>
+            </div>
+        </div>
+        <div class="recent">
+            <h2>Reviews</h2>           
+            {% for review in book.reviews.all %}
+            <p>{{ review.reviewer.id }}</p>
+            <p>Rating: {{ review.rating }}</p>
+            <p>
+                <a href="/users/{{ review.reviewer.id }}">{{ review.reviewer.alias }}</a> says: {{ review.content }}
+                {% if review.reviewer.id == request.session.id %}
+                <form action="/delete" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="page" value="{{review.book.id}}">
+                    <input type="hidden" name="review_id" value="{{review.id}}">
+                    <input type="submit" value="Delete Review" class="btn btn-danger"> 
+                </form>
+                {% endif%}
+            </p>
+            {% endfor %}
+        </div><div
+         class="others">
+            <form action="/books/add_review" method="POST">
+                {% csrf_token %}
+                <h2>Add a Review:</h2>
+                <input type="hidden" name="id" value="{{book.id}}">
+                <textarea name="review" class="form-control"></textarea>   
+                <label for="rating">Rating:</label>
+                <select name="rating" class="form-control">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>    
+                <div class="text-right"> 
+                    <input type="submit" value="Submit Review" class="btn btn-primary"> 
+                </div>     
+            </form>
+            
+        </div>
+    </div>    
+</body>
+</html>

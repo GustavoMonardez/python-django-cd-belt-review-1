@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login and Registration Success</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'practice_1/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'practice_1/css/main.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">    
+            <div>
+                <h1>Welcome, {{ request.session.alias }}!</h1>
+            </div><div>   
+                <form action="/books" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Home" class="btn btn-success">
+                </form>         
+                <form action="/books/add" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Add Book and Review" class="btn btn-primary">
+                </form>
+                <form action="/logout" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Logout" class="btn btn-danger">                   
+                </form>
+            </div>
+        </div>
+        <h2>User Alias: {{ user.alias }}</h2>
+        <p>Name: {{ user.name }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Total Reviews: {{ user.reviews.all.count }}</p>
+        <h3>Posted Reviews on the following books:</h3>
+        <div class="book-reviews">
+            {% for review in user.reviews.all %}
+            <a href="/books/{{review.book.id}}">{{review.book.title}}</a>
+            {% endfor %}
+        </div>
+    </div>    
+</body>
+</html>

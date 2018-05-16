@@ -1,0 +1,62 @@
+*{
+    margin:0px;
+    padding:0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 13px;
+}
+
+.wrapper{
+    width: 970px;
+    margin:auto;
+    padding:20px;
+}
+
+.header div, .recent, .others{
+    display: inline-block;
+    vertical-align: top;
+    width: 50%;
+}
+h1{
+    color:silver;
+    font-style: italic;
+}
+form{
+    display: inline-block;vertical-align: top;
+}
+
+.table th, .table td{
+    line-height: 26px;
+}
+
+.text-right{
+    margin-top:10px;
+}
+.error{
+    text-align: center;
+    margin:auto;
+    background-color:#d9534f;
+    color:whitesmoke;
+}
+
+.error p{
+    margin:0px;
+}
+
+.success{
+    color:#5cb85c;
+}
+
+.yellow{
+    color:#ffed39;
+    line-height: 20px;
+    font-weight: bold;
+}
+
+.list{
+    overflow: scroll;
+    height:100px;
+}
+
+.list a, .book-reviews a{
+    display: block;
+}
